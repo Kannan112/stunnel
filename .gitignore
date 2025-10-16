@@ -1,0 +1,31 @@
+/target
+
+# Environment files
+.env
+.env.local
+
+# Backup files
+*.backup
+*.bak
+
+# Runtime files
+*.pid
+*.log
+
+# Certificates (keep example certs)
+*.pem
+*.crt
+*.key
+!*.example.pem
+!*.example.crt
+!*.example.key
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db

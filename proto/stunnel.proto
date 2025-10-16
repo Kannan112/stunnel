@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package stunnel;
+
+// option go_package = "stunnel-manager/proto";
+
+service StunnelManager {
+    rpc ReloadConfig(ReloadRequest) returns (ReloadResponse);
+    rpc GetStatus(StatusRequest) returns (StatusResponse);
+    rpc UpdateConfig(UpdateConfigRequest) returns (UpdateConfigResponse);
+    rpc GenerateConfig(GenerateConfigRequest) returns (GenerateConfigResponse);
+    rpc AddProvider(AddProviderRequest) returns (AddProviderResponse);
+}
+
+message ReloadRequest {
+    string config_path = 1;
+    bool validate_only = 2;
+}
+
+message ReloadResponse {
+    bool success = 1;
+    string message = 2;
+    int32 pid = 3;
+}
+
+message StatusRequest {}
+
+message StatusResponse {
+    bool is_running = 1;
+    int32 pid = 2;
+    string config_path = 3;
+    repeated Connection active_connections = 4;
+}
+
+message Connection {
+    string service_name = 1;
+    string local_address = 2;
+    string remote_address = 3;
+    int64 bytes_sent = 4;
+    int64 bytes_received = 5;
+}
+
+message UpdateConfigRequest {
+    string config_path = 1;
+    string config_content = 2;
+}
+
+message UpdateConfigResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message Provider {
+    string name = 1;
+    int32 accept_port = 2;
+    string connect_host = 3;
+    int32 connect_port = 4;
+    bool is_client = 5;
+}
+
+message GenerateConfigRequest {
+    repeated Provider providers = 1;
+    string cert_path = 2;
+    string key_path = 3;
+    string ca_path = 4;
+    bool foreground = 5;
+    string pid_file = 6;
+}
+
+message GenerateConfigResponse {
+    bool success = 1;
+    string message = 2;
+    string config_content = 3;
+    string config_path = 4;
+}
+
+message AddProviderRequest {
+    Provider provider = 1;
+    bool apply_immediately = 2;
+}
+
+message AddProviderResponse {
+    bool success = 1;
+    string message = 2;
+    string updated_config = 3;
+}
