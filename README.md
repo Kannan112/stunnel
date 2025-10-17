@@ -164,4 +164,6 @@ See `.env.example` for a complete list of available variables
 
 ## License
 
-[Your License Here]
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Rust](https://img.shields.io/badge/Rust-1.73%2B-orange)
+![Docker](https://img.shields.io/badge/Docker-ready-blue)
